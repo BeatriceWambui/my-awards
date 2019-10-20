@@ -3,15 +3,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
+    user = models.OneToOneField(User,unique = True, on_delete=models.CASCADE)
     profile_image = models.ImageField(upload_to='photos/',null=True,default ='photos/default.jpg')
-    bio = models.CharField(max_length=50)        
-    username = models.OneToOneField(User,unique = True, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=50)    
+    projects = models.IntegerField(null=True)
+    contact = models.CharField(max_length=20,null=True)
 
     def __str__(self):
-        return f'{self.username.username} Profile'
-    def save_profile(self):
-        self.save()
-
-    def delete_profile(self):
-        self.delete()
+        return f'{self.user.username} Profile'
+ 
  

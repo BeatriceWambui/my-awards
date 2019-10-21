@@ -5,12 +5,23 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='/accounts/register/')
 def index(request):
-    return render(request,'blueprint/index.html')
+    users= Profile.objects.all()
+    return render(request,'blueprint/index.html',{'users':users})
 
 @login_required(login_url='/accounts/register/')
 def profile(request):
     current_user=request.user
-    post=Image.objects.filter(profile_id=current_user.id)
-    return render(request,'blueprint/profile.html',{'post':post,'forms':form})
+    return render(request,'blueprint/profile.html',)
 
-    
+def uploadProfile(request):   
+    if request.method == 'POST':
+        forms = UploadProfileForm(request.POST,request.FILES)
+        if forms.is_valid():
+            profile_image=form.cleaned_data['profile_image']
+            saveProfile  = Profile(profile_image=profile_image)
+            saveProfile.save()
+            return redirect(index)
+    else:
+        forms=UploadProfileForm()
+        return render(request,'blueprint/profile.html',{'forms':forms})
+

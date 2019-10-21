@@ -5,7 +5,11 @@ from django.conf.urls.static import static
 
 urlpatterns=[
     url('^$',views.index,name='index'),
+    url(r'^subscribe/',views.mysubscribe,name = 'subscribe'),
     url(r'^profile/$',views.profile,name='profile'),
+    url(r'^profile/$',views.uploadProfile,name='uploadProfile'),
+    url(r'^ajax/newsletter/$', views.newsletter, name='newsletter'),
+    url(r'^search/', views.search_results, name='search_results')
     ]
 
 if settings.DEBUG:

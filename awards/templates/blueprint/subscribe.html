@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{%load bootstrap4%}
+{% block content %}
+{{block.super}} 
+
+<div class="container-fluid">
+    <form  action="{%url 'index'%}" method="post">
+        {%csrf_token%}
+    
+        {% bootstrap_form instaForm layout='inline' %}
+        <input type="submit" value="Subscribe">
+    </form>   
+</div>
+
+{%endblock%}

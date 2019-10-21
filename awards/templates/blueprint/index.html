@@ -1,2 +1,9 @@
 {% extends 'base.html' %}
+{% block content %}
+{{block.super}}
 <h1 class='text-center'> This are Awards</h1>
+{% endblock%}
+
+{% block script %}
+{{block.super}}
+    <script type="text/javascript" src="{% static 'js/newsletter.js'%}"></script>

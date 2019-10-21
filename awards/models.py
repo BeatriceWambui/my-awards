@@ -20,3 +20,16 @@ class NewsLetterRecipients(models.Model):
     email = models.EmailField()
     def __str__(self):
         return self.name
+
+class Project(models.Model):
+    title = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='photos/')
+    description = models.TextField()
+    link = models.CharField(max_length=250)
+    editor = models.CharField(max_length=50)
+    date = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.title
+    class Meta:
+        ordering =['title']

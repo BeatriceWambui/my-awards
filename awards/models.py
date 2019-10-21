@@ -11,5 +11,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
- 
- 
+    @classmethod
+    def search_by_projects(cls,search_term):
+        found = cls.objects.filter(projects__icontains=search_term)
+        return found
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()
+    def __str__(self):
+        return self.name

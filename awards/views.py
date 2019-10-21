@@ -5,6 +5,11 @@ from .models import Profile,NewsLetterRecipients
 from .forms import UploadProfileForm,NewsLetterForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Project
+from .serializer import MerchSerializer
+from rest_framework import status
 # Create your views here.
 @login_required(login_url='/accounts/register/')
 def index(request):
@@ -67,3 +72,16 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'blueprint/search.html',{"message":message})
+
+class ProjectList(APIView):
+    def get(self,request,format=None):
+        all_merch = Project.objects.all()
+        serializers = MerchSerializer(all_merch,many=True)
+        return Response(serializers.data)
+
+    def post(self,request,format=None):
+        serializers=MerchSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data,status=status.HTTP_201_CREATED)
+        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)

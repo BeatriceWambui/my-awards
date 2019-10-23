@@ -1,3 +1,14 @@
 h1{
     color:green;
 }
+#image{
+    padding-left: 2%;
+    padding-right: 2%;
+    height:auto;
+    max-width:100%
+   
+}
+.img-div{
+    height:80vh;
+    overflow:hidden;
+}

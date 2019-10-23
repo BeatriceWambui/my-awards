@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{%load bootstrap4%}
+{% block content %}
+{{block.super}}  <br>
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+    <form action="{% url 'UploadProject' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form layout='inline' %}
+        <input class="btn btn-success" value="Submit" type="submit">
+
+    </form>
+</div>
+
+{% endblock %}

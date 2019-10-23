@@ -2,26 +2,31 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .email import send_welcome_email
 from .models import Profile,NewsLetterRecipients
-from .forms import UploadProfileForm,NewsLetterForm
+from .forms import UploadProfileForm,NewsLetterForm,ProjectForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
+from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
 from .models import Project
 from .serializer import MerchSerializer
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 # Create your views here.
 @login_required(login_url='/accounts/register/')
 def index(request):
     users= Profile.objects.all()
+    post = Project.objects.all()
     form = NewsLetterForm()
-    return render(request,'blueprint/index.html',{'users':users,'form':form})
+    return render(request,'blueprint/index.html',{'users':users,'form':form,'post':post})
 
 @login_required(login_url='/accounts/register/')
 def profile(request):
     current_user=request.user
+    form = UploadProfileForm()
     return render(request,'blueprint/profile.html',{'form':form})
 
+@login_required(login_url='/accounts/register/')
 def uploadProfile(request):   
     if request.method == 'POST':
         forms = UploadProfileForm(request.POST,request.FILES)
@@ -34,9 +39,27 @@ def uploadProfile(request):
         forms=UploadProfileForm()
         return render(request,'blueprint/profile.html',{'forms':forms})
 
+@login_required(login_url='/accounts/login/')
+def UploadProject(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST,request.FILES)
+        if form.is_valid():
+            title=form.cleaned_data['title']
+            image=form.cleaned_data['image']
+            description=form.cleaned_data['description']
+            link=form.cleaned_data['link']
+            editor=form.cleaned_data['editor']
+            recipient = Project(title=title,image=image,description=description,link=link,editor=editor)
+            recipient.save()
+            HttpResponseRedirect('UploadProject')
+    else:
+        form=ProjectForm()
+    return render(request,'blueprint/upload.html',{'form':form})
+
+
 @login_required(login_url='/accounts/register/')
 def mysubscribe(request):
-    if request.method == 'POST':
+    if request.method == 'POSUploadProjectT':
         form = NewsLetterForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['your_name']
@@ -77,6 +100,7 @@ class ProjectList(APIView):
     def get(self,request,format=None):
         all_merch = Project.objects.all()
         serializers = MerchSerializer(all_merch,many=True)
+        permission_classes=(IsAdminOrReadOnly)
         return Response(serializers.data)
 
     def post(self,request,format=None):
@@ -85,3 +109,27 @@ class ProjectList(APIView):
             serializers.save()
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
+class MerchDescription(APIView):
+    permission_classes =(IsAdminOrReadOnly,)
+    def get_merch(self,pk):
+        try:
+            return Project.objects.get(pk=pk)
+        except Project.DoesNotExist:
+            return Http404
+    def get(self,request,pk,format=None):
+        merch=self.get_merch(pk)
+        serializers=MerchSerializer(merch)
+        return Response(serializers.data)
+    def put(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        serializers = MerchSerializer(merch, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request,pk,format=None):
+        merch = self.get_merch(pk)
+        merch.delete()
+        return Response(status.HTTP_204_NO_CONTENT)

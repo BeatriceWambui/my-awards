@@ -28,7 +28,7 @@ View my profile page
     In your local machine you can get the project by following the instructions below:
     > Navigate to the folder where you would like the project to be held (eg) Documents
     > Copy the github link on the clone button and open the terminal (ctr+alt+t) and clone the project to get the exact copy in your machine : git clone https://github.com/BeatriceWambui/my-awards.git
-    > To open the directory that hosts your project use the command (cd my-gallery) where my-gallery is the name of the project.
+    > To open the directory that hosts your project use the command (cd my-awards) where my-awards is the name of the project.
     > To open the project on a text editor you can use the commands for Visual Studio(code .) for atom( atom .) and others according to the text editor you preffer.
     > You can now work on the project if so you will. 
 

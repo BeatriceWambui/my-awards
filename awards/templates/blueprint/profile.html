@@ -2,21 +2,22 @@
 {% load bootstrap4 %}
 {% block content %}
 {{block.super}} 
-
-<div class="col-md-6">
-        <form action="{% url 'uploadProfile' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %} <br>
-            {{form}} 
-            <input class="btn btn-success" value="Submit" type="submit">
-        
-        </form> 
-</div>
-<div class="col-md-6"></div>
-<br><br><br>
-
+<div class="container">
+<div id="move"> <br>
+<div class="card" style="width: 15rem;">
+    <div class="card-body">
+    <form action="{% url 'uploadProfile' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} <br>
+      {{form}} 
+      <input class="btn btn-success" value="Submit" type="submit">
+  
+  </form> 
+  </div>
+</div> 
+</div> <br> <br>
 {% if image.profile == username %}
 
-    <div class="cotenet-section">
+    <div class="cotenet-section" id="flex">
         <div class="media">
             <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="200px" width="200px" alt=""> 
             <div class="media-body"> <br>
@@ -29,29 +30,5 @@
         </div>
     </div>
 {% endif %}
-{% for posts in post %}
-<div class="card " style="width:400px">
-  <img class="card-img-top" src="{{posts.image.url}}" alt="Card image">
-</div> <br>
 
-<div class="card " id="sticky" style="width:400px">
-    <div class="card-body">
-      <h4 class="card-title">{{posts.title}}</h4>
-      <p class="card-text">{{posts.projects}}</p>
-      <p class="card-text">{{posts.link}}</p>
-      <p class="card-text">{{posts.description}}</p>
-      <p class="card-text">{{posts.editor}}</p>
-
-
-    </div>
- </div>
-
-
-{% empty %}
-<div class="row">
-  <h2 class="text-center">This project</h2>
-</div>
-{% endfor %} 
-</div>
-</div>
 {% endblock %}

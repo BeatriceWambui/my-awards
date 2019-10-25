@@ -4,13 +4,17 @@
 {{block.super}}  <br>
 <div class="container">
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-6" id="overlay">  <br> <br>
     <form action="{% url 'UploadProject' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form layout='inline' %}
-        <input class="btn btn-success" value="Submit" type="submit">
+        <input class="btn btn-success" value="Submit" type="submit"> <br>
 
     </form>
 </div>
+<div class="col-md-6"></div>
+</div>
+</div>
+
 
 {% endblock %}

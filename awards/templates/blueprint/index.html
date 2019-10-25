@@ -2,16 +2,16 @@
 {% block content %}
 {% load static%}
 {{block.super}}
-<h1 class='text-center'> Awards</h1>
-<div  class="img-div">
-  <img class="img-fluid" id ="image" src="/static/pic3.jpg"  alt="">
-</div>
-{% if image.profile == username %}
+<div id="float1">
+    <h1 class='text-center' id="one"> AWWARDS</h1>
+
+    {% if image.profile == username %}
 
     <div class="cotenet-section">
         <div class="media">
           <div>
-              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="100px" width="100px" alt="">           <div class="media-body">
+              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="50px" width="50px" alt="">    
+         <div class="media-body">
           </div>
 
           <div>
@@ -21,14 +21,21 @@
         </div>
     </div>
 {% endif %}
+</div>
+<div  class="img-div" id="redo">
+  <img class="img-fluid" id ="image" src="/static/pic3.jpg"  alt="">
+</div>
+
 <div class="card-columns">
     {% for posts in post %}
     <div class="card" style="width: 18rem;">
-        <img src="{{posts.image.url}}" class="card-img-top" alt="projects">
         <div class="card-body">
-          <h5 class="card-title">{{posts.title}}</h5>
-          <a href="/profile
-          " class="btn btn-primary">Project</a>
+          <h5 class="card-title">{{posts.date}}</h5>
+          <a href="/profile"><img  src="{{posts.image.url}}" class="card-img-top" alt="projects"></a>
+          <h5 class="card-title">{{posts.title}}</h5> <hr>
+          <h5 class="card-text" style="color:indigo">{{posts.description}}</h5> <hr>
+          <a href="{{posts.link}}">more</a>
+
         </div>
       </div>
 

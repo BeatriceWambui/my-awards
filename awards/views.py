@@ -39,7 +39,7 @@ def uploadProfile(request):
         forms=UploadProfileForm()
         return render(request,'blueprint/profile.html',{'forms':forms})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/register/')
 def UploadProject(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST,request.FILES)

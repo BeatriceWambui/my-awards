@@ -13,7 +13,7 @@ from .serializer import MerchSerializer
 from rest_framework import status
 from .permissions import IsAdminOrReadOnly
 # Create your views here.
-@login_required(login_url='/accounts/register/')
+@login_required(login_url='/accounts/login/')
 def index(request):
     users= Profile.objects.all()
     post = Project.objects.all()
@@ -21,13 +21,13 @@ def index(request):
     form = NewsLetterForm()
     return render(request,'blueprint/index.html',{'users':users,'form':form,'post':post,'myform':myform})
 
-@login_required(login_url='/accounts/register/')
+@login_required(login_url='/accounts/login/')
 def profile(request):
     current_user=request.user
     form = UploadProfileForm()
     return render(request,'blueprint/profile.html',{'form':form})
 
-@login_required(login_url='/accounts/register/')
+@login_required(login_url='/accounts/login/')
 def uploadProfile(request):
     if request.method == 'POST':
         forms = UploadProfileForm(request.POST,request.FILES)
@@ -40,7 +40,7 @@ def uploadProfile(request):
         forms=UploadProfileForm()
         return render(request,'blueprint/profile.html',{'forms':forms})
 
-@login_required(login_url='/accounts/register/')
+@login_required(login_url='/accounts/login/')
 def UploadProject(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST,request.FILES)
@@ -58,7 +58,7 @@ def UploadProject(request):
     return render(request,'blueprint/upload.html',{'form':form})
 
 
-@login_required(login_url='/accounts/register/')
+@login_required(login_url='/accounts/login/')
 def mysubscribe(request):
     if request.method == 'POSUploadProjectT':
         form = NewsLetterForm(request.POST)

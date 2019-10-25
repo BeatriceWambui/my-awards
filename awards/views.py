@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .email import send_welcome_email
-from .models import Profile,NewsLetterRecipients
-from .forms import UploadProfileForm,NewsLetterForm,ProjectForm
+from .models import Profile,NewsLetterRecipients,Review
+from .forms import UploadProfileForm,NewsLetterForm,ProjectForm,ReviewForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
@@ -17,6 +17,7 @@ from .permissions import IsAdminOrReadOnly
 def index(request):
     users= Profile.objects.all()
     post = Project.objects.all()
+    myform=ReviewForm()
     form = NewsLetterForm()
     return render(request,'blueprint/index.html',{'users':users,'form':form,'post':post})
 
@@ -81,6 +82,19 @@ def newsletter(request):
     send_welcome_email(name, email)
     data = {'success': 'You have been successfully added to mailing list'}
     return JsonResponse(data)
+
+def review(request):
+    if request.method == 'POST':
+        myform=ReviewForm(request.POST)
+        if myform.is_valid():
+            review = myform.cleaned_data['review']
+            recipient = Review(review=review)
+            recipient.save()
+            HttpResponseRedirect('index')
+    else:
+            myform = CommentForm()
+    return render(request,'blueprint/index.html',{'myform':myform})
+
 
 def search_results(request):
 

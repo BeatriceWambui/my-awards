@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile,NewsLetterRecipients,Project
+from .models import Profile,NewsLetterRecipients,Project,Review
 class UploadProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -13,3 +13,8 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields =['title','image','description','link','editor']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields=('review',)

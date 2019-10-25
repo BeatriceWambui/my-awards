@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static%}
+{%load bootstrap4%}
 {{block.super}}
 <div id="float1">
     <h1 class='text-center' id="one"> AWWARDS</h1>
@@ -24,18 +25,18 @@
 </div>
 <div  class="img-div" id="redo">
   <img class="img-fluid" id ="image" src="/static/pic3.jpg"  alt="">
-</div>
+</div> <br>
 
 <div class="card-columns">
     {% for posts in post %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 25rem;">
         <div class="card-body">
           <h5 class="card-title">{{posts.date}}</h5>
           <a href="/profile"><img  src="{{posts.image.url}}" class="card-img-top" alt="projects"></a>
           <h5 class="card-title">{{posts.title}}</h5> <hr>
           <h5 class="card-text" style="color:indigo">{{posts.description}}</h5> <hr>
           <a href="{{posts.link}}">more</a>
-
+         
         </div>
       </div>
 

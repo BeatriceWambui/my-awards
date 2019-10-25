@@ -30,8 +30,17 @@ class Project(models.Model):
     link = models.CharField(max_length=250)
     editor = models.CharField(max_length=50)
     date = models.DateTimeField(default=timezone.now)
+    profile_image = models.ForeignKey(User,null=True)
 
     def __str__(self):
         return self.title
     class Meta:
         ordering =['title']
+
+class Review(models.Model):
+    review = models.CharField(max_length=250)
+    image = models.ForeignKey(Project,on_delete=models.CASCADE,related_name='review')
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='review')
+    
+    def __str__(self):
+        return self.review

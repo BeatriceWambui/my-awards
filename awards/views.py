@@ -19,7 +19,7 @@ def index(request):
     post = Project.objects.all()
     myform=ReviewForm()
     form = NewsLetterForm()
-    return render(request,'blueprint/index.html',{'users':users,'form':form,'post':post})
+    return render(request,'blueprint/index.html',{'users':users,'form':form,'post':post,'myform':myform})
 
 @login_required(login_url='/accounts/register/')
 def profile(request):
@@ -28,7 +28,7 @@ def profile(request):
     return render(request,'blueprint/profile.html',{'form':form})
 
 @login_required(login_url='/accounts/register/')
-def uploadProfile(request):   
+def uploadProfile(request):
     if request.method == 'POST':
         forms = UploadProfileForm(request.POST,request.FILES)
         if forms.is_valid():

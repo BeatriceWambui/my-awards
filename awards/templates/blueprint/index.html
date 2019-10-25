@@ -3,7 +3,7 @@
 {% load static%}
 {%load bootstrap4%}
 {{block.super}}
-<div id="float1">
+<div  class="container" id="float1">
     <h1 class='text-center' id="one"> AWWARDS</h1>
 
     {% if image.profile == username %}
@@ -11,7 +11,7 @@
     <div class="cotenet-section">
         <div class="media">
           <div>
-              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="50px" width="50px" alt="">    
+              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="50px" width="50px" alt="">
          <div class="media-body">
           </div>
 
@@ -36,7 +36,12 @@
           <h5 class="card-title">{{posts.title}}</h5> <hr>
           <h5 class="card-text" style="color:indigo">{{posts.description}}</h5> <hr>
           <a href="{{posts.link}}">more</a>
-         
+          <form  action="{%url 'index'%}" method="post">
+             {%csrf_token%}
+
+             {% bootstrap_form myform layout='inline' %}
+             <input type="submit" value="submit">
+           </form>
         </div>
       </div>
 
@@ -44,12 +49,12 @@
       <div class="row">
         <h2 class="text-center">Welcome to Awards</h2>
       </div>
-      {% endfor %} 
-   
+      {% endfor %}
+
 </div>
 {% endblock%}
 
-{% block scripts %} 
+{% block scripts %}
 {{block.super}}
   <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
 {% endblock %}

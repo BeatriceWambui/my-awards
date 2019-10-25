@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from .email import send_welcome_email
 from .models import Profile,NewsLetterRecipients,Review
@@ -16,6 +16,7 @@ from .permissions import IsAdminOrReadOnly
 @login_required(login_url='/accounts/login/')
 def index(request):
     users= Profile.objects.all()
+    user = request.user
     post = Project.objects.all()
     myform=ReviewForm()
     form = NewsLetterForm()
@@ -35,7 +36,7 @@ def uploadProfile(request):
             profile_image=form.cleaned_data['profile_image']
             saveProfile  = Profile(profile_image=profile_image)
             saveProfile.save()
-            return redirect(index)
+            return redirect('index')
     else:
         forms=UploadProfileForm()
         return render(request,'blueprint/profile.html',{'forms':forms})
@@ -52,7 +53,7 @@ def UploadProject(request):
             editor=form.cleaned_data['editor']
             recipient = Project(title=title,image=image,description=description,link=link,editor=editor)
             recipient.save()
-            HttpResponseRedirect('UploadProject')
+            return redirect('index')
     else:
         form=ProjectForm()
     return render(request,'blueprint/upload.html',{'form':form})

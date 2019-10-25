@@ -3,13 +3,15 @@
 {% load static%}
 {%load bootstrap4%}
 {{block.super}}
-<div  class="div" id="float1" c>
+<div  id="float1" c>
     <h1 class='text-center' id="one"> AWWARDS</h1>
+    {% if image.profile == username %}
+
 
     <div class="cotenet-section">
         <div class="media">
           <div>
-              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="50px" width="50px" alt="">
+              <img class="rounded-circle account-img" src="{{user.profile.profile_image.url }}" height="50px" width="50px" alt="profpic">
          <div class="media-body">
           </div>
 
@@ -19,6 +21,8 @@
             </div>
         </div>
     </div>
+    {% endif %}
+
 </div>
 <div  class="img-div" >
   <img class="img-fluid" id ="image" src="/static/pic3.jpg"  alt="">

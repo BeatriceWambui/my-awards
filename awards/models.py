@@ -25,7 +25,7 @@ class NewsLetterRecipients(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='photos/')
+    image = models.ImageField(upload_to='photos/',default ='photos/default.jpg')
     description = models.TextField()
     link = models.CharField(max_length=250)
     editor = models.CharField(max_length=50)

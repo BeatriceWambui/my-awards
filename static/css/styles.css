@@ -5,10 +5,11 @@ h1{
 #one{
     text-shadow: 4px 4px black;
     font-size: 70px;
+    padding-left: 5%;
 }
 #image{
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 0%;
+    padding-right: 0%;
     height:auto;
     max-width:100%;
 }

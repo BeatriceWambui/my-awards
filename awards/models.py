@@ -13,12 +13,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
-    @classmethod
-    def search_by_projects(cls,search_term):
-        found = cls.objects.filter(projects__icontains=search_term)
-        return found
+
 class NewsLetterRecipients(models.Model):
-    name = models.CharField(max_length = 30)
+    name = models.CharField(max_length = 30,default="hello")
     email = models.EmailField()
     def __str__(self):
         return self.name
@@ -36,6 +33,20 @@ class Project(models.Model):
         return self.title
     class Meta:
         ordering =['title']
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def all_project(cls):
+        return cls.objects.all()
+       
+    @classmethod
+    def search_project(cls,search_term):
+        found = cls.objects.filter(title__icontains=search_term)
+        return found
 
 class Review(models.Model):
     review = models.CharField(max_length=250)

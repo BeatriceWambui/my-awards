@@ -17,11 +17,7 @@ h1{
     padding-right:35%;
     float:right;
 }
-.img-div{
-    height:80vh;
-    width: 80rem;
-    overflow:hidden;
-}
+
 
 #flex{
     float: left;
@@ -31,6 +27,8 @@ h1{
  }
 .container{
      background-image: url('/static/pic3.jpg');
+     background-repeat: no-repeat;
+     background-attachment: fixed;
  }
 #overlay{
     background-color: rgba(3, 3, 3, 0.7);

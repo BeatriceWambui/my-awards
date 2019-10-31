@@ -3,7 +3,8 @@
 {% load static%}
 {%load bootstrap4%}
 {{block.super}}
-<div  id="float1" c>
+<div class="container">
+<div  id="float1" >
     <h1 class='text-center' id="one"> AWWARDS</h1>
     {% if image.profile == username %}
 
@@ -24,15 +25,11 @@
     {% endif %}
 
 </div>
-<div  class="img-div" >
 
-  <source srcset="..." type="image/svg+xml">
-    <img class="img-fluid img-thumbnail" id ="image" src="/static/pic3.jpg"  alt="">
-</div> <br>
-
-<div class="card-columns">
+<div class="row">
     {% for posts in post %}
-    <div class="card" style="width: 25rem;">
+    <div class="col-md-4">
+    <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">{{posts.date}}</h5>
           <a href="/profile"><img  src="{{posts.image.url}}" class="card-img-top" alt="projects"></a>
@@ -47,13 +44,14 @@
            </form>
         </div>
       </div>
-
+    </div>
       {% empty %}
       <div class="row">
         <h2 class="text-center">Welcome to Awards</h2>
       </div>
       {% endfor %}
 
+</div>
 </div>
 {% endblock%}
 

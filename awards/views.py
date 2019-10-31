@@ -83,6 +83,7 @@ def newsletter(request):
     send_welcome_email(name, email)
     data = {'success': 'You have been successfully added to mailing list'}
     return JsonResponse(data)
+    pass                                                                                                                                
 
 def review(request):
     if request.method == 'POST':
@@ -96,14 +97,12 @@ def review(request):
             myform = CommentForm()
     return render(request,'blueprint/index.html',{'myform':myform})
 
-
 def search_results(request):
 
     if 'projects' in request.GET and request.GET["projects"]:
         search_term = request.GET.get("projects")
-        searched_project = Profile.search_by_projects(search_term)
+        searched_project = Project.search_by_title(search_term)
         message = f"{search_term}"
-        profiles = Profile.objects.all()
 
         return render(request, 'blueprint/search.html',{"message":message,"projects": searched_project})
 
